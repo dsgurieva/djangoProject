@@ -11,7 +11,7 @@ class Product(models.Model):
 
 
     def __str__(self):
-        return f'{self.id} {self.name} {self.price} {self.category}'
+        return f'{self.name} {self.price} руб./кг.'
 
 
     class Meta:
