@@ -1,19 +1,26 @@
-from django.shortcuts import render
-
+from django.urls import reverse_lazy
+from django.views.generic import ListView, FormView
+from django import forms
 from catalog.models import Product
 
+class CatalogListView(ListView):
+    model = Product
+    template_name = 'main/home.html'
+    success_url = reverse_lazy('catalog:home')
 
-def contacts(request):
-    context ={
-        'title': 'Контакты'
-    }
-    return render(request, 'main/contacts.html', context)
 
-def home(request):
-    product_list = Product.objects.all()
-    context = {
-        'object_list': product_list,
-        'title': 'Главная'
-    }
-    return render(request, 'main/home.html', context)
+class Contacts(forms.Form):
+    name = forms.CharField()
+
+
+class ContactsFormView(FormView):
+    template_name = 'main/contacts.html'
+    form_class = Contacts
+    success_url = reverse_lazy('catalog:home')
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+
+
 
