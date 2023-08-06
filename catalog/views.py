@@ -1,7 +1,9 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView
+from django.views.generic import ListView, FormView, CreateView
 from django import forms
 from catalog.models import Product
+from catalog.forms import ProductForm
+
 
 class CatalogListView(ListView):
     model = Product
@@ -20,6 +22,13 @@ class ContactsFormView(FormView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'main/product_form.html'
+    success_url = reverse_lazy('catalog:home')
 
 
 
