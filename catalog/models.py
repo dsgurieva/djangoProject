@@ -37,8 +37,8 @@ class Category(models.Model):
 
 
 class Version(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    number_version = models.CharField(max_length=50, verbose_name='номер версии')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт', related_name='product_ver')
+    number_version = models.IntegerField(default=0, verbose_name='номер версии')
     name_version = models.CharField(max_length=100, verbose_name='название версии')
     is_active = models.BooleanField(default=False, verbose_name='признак текущей версии')
 
