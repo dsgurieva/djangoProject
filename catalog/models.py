@@ -1,5 +1,8 @@
 from django.db import models
 
+from user.models import User
+
+
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='наименование')
     description = models.TextField(verbose_name='описание')
@@ -8,6 +11,7 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='цена')
     date_of_creation = models.DateField(verbose_name='дата создания')
     last_modified_date = models.DateField(verbose_name='дата последнего изменения')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     def __str__(self):
