@@ -12,6 +12,7 @@ class Product(models.Model):
     date_of_creation = models.DateField(verbose_name='дата создания')
     last_modified_date = models.DateField(verbose_name='дата последнего изменения')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    published = models.BooleanField(default=False, null=True, blank=True)
 
 
     def __str__(self):
@@ -22,6 +23,12 @@ class Product(models.Model):
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('name',)
+        permissions = [
+            (
+                'set_published',
+                'Can publish posts'
+            )
+        ]
 
 
 

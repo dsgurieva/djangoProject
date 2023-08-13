@@ -6,7 +6,8 @@ from django.core.exceptions import ValidationError
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        #fields = '__all__'
+        exclude = ('user',)
 
 
     def __init__(self, *args, **kwargs):
