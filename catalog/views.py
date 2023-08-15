@@ -3,8 +3,28 @@ from django.forms import inlineformset_factory
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, CreateView, UpdateView
 from django import forms
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 from catalog.forms import ProductForm, VersionForm
+from django.shortcuts import render
+from django.core.cache import cache
+from djangoProject import settings
+
+
+def categories(request):
+    if settings.CACHE_ENABLED:
+        key = 'categori_list'
+        category_list = cache.get(key)
+        if category_list is None:
+            category_list = Category.objects.all()
+            cache.set(key, category_list)
+    else:
+        category_list = Category.objects.all()
+
+    context = {
+        'object_list': category_list,
+        'title': 'Все категории наших товаров'
+    }
+    return render(request, 'main/categories.html', context)
 
 
 class CatalogListView(LoginRequiredMixin, ListView):
